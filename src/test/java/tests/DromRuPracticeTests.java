@@ -72,7 +72,8 @@ public class DromRuPracticeTests extends TestBase {
         mainPage.openPage()
                 .clickRegionButton()
                 .checkHeaderRegion()
-                .changeHomeRegion(testData.regionName);
+                .changeHomeRegion(testData.regionName)
+                .checkRegion(testData.regionName);
     }
 
     @Test
@@ -155,6 +156,7 @@ public class DromRuPracticeTests extends TestBase {
                 .clickCarsModelBtn(testData.randomCarModel)
                 .checkHeaderSellCarModel(testData.randomCarModel);
     }
+
     @Test
     @Owner("Kwlad1ck")
     @Tags({

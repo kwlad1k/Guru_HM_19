@@ -21,12 +21,11 @@ public class TestBase {
         DriverConfig driverConfig = ConfigFactory.create(DriverConfig.class);
         Configuration.baseUrl = "https://www.drom.ru/";
         Configuration.pageLoadStrategy = "normal";
-
         Configuration.browser = driverConfig.browserName();
         Configuration.browserVersion = driverConfig.browserVersion();
         Configuration.browserSize = driverConfig.browserSize();
 
-        if (driverConfig.isRemote()) {
+        if (driverConfig.remoteMode()) {
             Configuration.remote = driverConfig.remoteUrl();
 
             DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -45,10 +44,13 @@ public class TestBase {
 
     @AfterEach
     void addAttachments() {
-        Attach.screenshotAs("Last Screenshot");
+        DriverConfig driverConfig = ConfigFactory.create(DriverConfig.class);
+        Attach.screenshotAs("Screenshot");
         Attach.pageSource();
         Attach.browserConsoleLogs();
-        if (Configuration.remote != null) Attach.addVideo();
+        if (driverConfig.remoteMode()) {
+            Attach.addVideo();
+        }
         Selenide.closeWebDriver();
     }
 }
